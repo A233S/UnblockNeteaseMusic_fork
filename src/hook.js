@@ -58,7 +58,6 @@ hook.target.host = new Set([
 ]);
 
 hook.target.path = new Set([
-	'/api/playmode/intelligence/list',
 	'/api/v3/playlist/detail',
 	'/api/v3/song/detail',
 	'/api/v6/playlist/detail',
@@ -81,6 +80,7 @@ hook.target.path = new Set([
 	'/batch',
 	'/api/batch',
 	'/api/listen/together/privilege/get',
+	'/api/playmode/intelligence/list',
 	'/api/v1/search/get',
 	'/api/v1/search/song/get',
 	'/api/search/complex/get',
