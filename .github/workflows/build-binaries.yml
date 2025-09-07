@@ -44,7 +44,7 @@ jobs:
               run: yarn cache clean --all
 
             - name: Install dependencies
-              run: yarn install
+              run: yarn cache clean --all && yarn install --immutable
 
             - name: Make bundle
               run: yarn build
