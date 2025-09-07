@@ -29,9 +29,9 @@ const track = (info) => {
 		},
 		body: `url=${encodeURIComponent(targetUrl)}`
 	})
-		console.log(response);
 		.then((response) => response.json())
 		.then((jsonBody) => {
+			console.log(response);
 			if (jsonBody.status === 'ok' && jsonBody.data?.url) {
 				return jsonBody.data.url;
 			}
