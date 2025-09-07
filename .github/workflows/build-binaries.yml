@@ -40,6 +40,9 @@ jobs:
                   image: tonistiigi/binfmt:latest
                   platforms: all
 
+            - name: Clean
+              run: yarn cache clean --all
+
             - name: Install dependencies
               run: yarn install
 
