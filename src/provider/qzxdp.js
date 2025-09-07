@@ -29,7 +29,7 @@ const track = (info) => {
 		},
 		body: `url=${encodeURIComponent(targetUrl)}&musicType=lossless`
 	})
-		.then((response) => response.json())
+		.then((response) => console.log(response))
 		.then((jsonBody) => {
 			console.log(response);
 			if (jsonBody.status === 'ok' && jsonBody.data?.url) {
