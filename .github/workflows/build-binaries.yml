@@ -40,11 +40,8 @@ jobs:
                   image: tonistiigi/binfmt:latest
                   platforms: all
 
-            - name: Clean
-              run: rm -rf yarn.lock
-
             - name: Install dependencies
-              run: yarn cache clean --all && yarn install --immutable
+              run: yarn
 
             - name: Make bundle
               run: yarn build
