@@ -12,6 +12,7 @@ const PROVIDERS = {
 	bilivideo: require('./provider/bilivideo'),
 	pyncmd: require('./provider/pyncmd'),
 	pyncmd_kuwo: require('./provider/pyncmd_kuwo'),
+	qzxdp: require('./provider/qzxdp'),
 };
 
 module.exports = {
