@@ -40,15 +40,9 @@ async function searchFangpi(keyword) {
     const resultUrls = [];
 
     // 4. 定位元素并提取数据
-    // 通过分析HTML，我们发现每个搜索结果都在一个 class 为 "music-link" 的 <a> 标签中。
-    // 我们可以使用 CSS 选择器 '.card-text a.music-link' 来精确定位这些链接。
     $('.card-text a.music-link').each((index, element) => {
-      // 获取 href 属性值，例如 "/music/11575730"
       const partialUrl = $(element).attr('href');
-
-      // 确保 partialUrl 存在且是有效的
       if (partialUrl && partialUrl.startsWith('/music/')) {
-        // 5. 拼接成完整的 URL
         const fullUrl = `${baseUrl}${partialUrl}`;
         resultUrls.push(fullUrl);
       }
@@ -59,57 +53,46 @@ async function searchFangpi(keyword) {
 
   } catch (error) {
     console.error(`请求或解析时发生错误: ${error.message}`);
-    // 如果发生错误，返回一个空数组
     return [];
   }
 }
 
 /**
  * 从 fangpi.net 获取音乐的 play_id
- * @param {string | number} url_id 音乐的 URL ID
+ * @param {string} songUrl 音乐的完整 URL
  * @returns {Promise<string|null>} 返回 play_id 字符串，如果失败则返回 null
  */
-async function getPlayId(url_id) {
-  // 1. 校验输入参数
-  if (!url_id) {
-    console.error('错误：必须提供 url_id。');
+async function getPlayId(songUrl) {
+  if (!songUrl) {
+    console.error('错误：必须提供 songUrl。');
     return null;
   }
 
-  const url = `${url_id}`;
-  console.log(`正在请求: ${url}`);
+  console.log(`正在请求: ${songUrl}`);
 
   try {
-    // 2. 发送 GET 请求获取 HTML 内容
-    const response = await fetch(url, {
-      // 添加一些常见的浏览器头信息，防止被服务器拒绝
+    const response = await fetch(songUrl, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
       }
     });
 
-    // 检查请求是否成功
     if (!response.ok) {
       console.error(`HTTP 错误! 状态码: ${response.status}`);
       return null;
     }
 
     const html = await response.text();
-
-    // 3. 使用 cheerio 加载 HTML
     const $ = cheerio.load(html);
-
     let appDataString = null;
 
-    // 4. 遍历所有 script 标签，找到包含 "window.appData" 的那个
     $('script').each((index, element) => {
       const scriptContent = $(element).html();
       if (scriptContent && scriptContent.includes('window.appData')) {
-        // 5. 使用正则表达式从脚本内容中提取 JSON 对象字符串
         const match = scriptContent.match(/window\.appData\s*=\s*({.*});/);
         if (match && match[1]) {
           appDataString = match[1];
-          return false; // 找到后停止遍历
+          return false; 
         }
       }
     });
@@ -119,7 +102,6 @@ async function getPlayId(url_id) {
       return null;
     }
 
-    // 6. 解析 JSON 字符串并提取 play_id
     const appData = JSON.parse(appDataString);
     const playId = appData.play_id;
 
@@ -136,34 +118,53 @@ async function getPlayId(url_id) {
   }
 }
 
-const track = (info) => {
+// --- 以下是主要修改区域 ---
+
+// 1. 将 track 函数声明为 async 函数，以便在内部使用 await
+const track = async (info) => {
 	const apiUrl = 'https://www.fangpi.net/api/play-url';
-	const keyword = encodeURIComponent(info.keyword.replace(' - ', ' '));
+	const keyword = info.keyword.replace(' - ', ' '); // API搜索不需要URL编码，searchFangpi内部会处理
 	
-	//搜索
-	const targeturls = await searchFangpi(keyword);
-	if (urls.length > 0) {
-      // 如果有结果，获取第一个 (urls[0])
-      const targetUrl_on = urls[0];
-    } else {
-      // 如果没有结果，给出提示
-      Promise.reject(`没有为关键词 "${keyword}" 找到任何结果。`);
-    }
-    
-    // 获取targetUrlID
-    const targetUrlID = await getPlayId(targetUrl_on);
-	
-	return request('POST', apiUrl, {
-		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-		body: `id=${encodeURIComponent(targetUrlID)}`
-	})
-		.then((response) => response.json())
-		.then((jsonBody) => {
-			if (jsonBody.status === 'ok' && jsonBody.data?.url) {
-				return jsonBody.data.url;
-			}
-			return Promise.reject();
+	// 2. 使用 try...catch 块来捕获整个异步流程中的错误
+	try {
+		// 搜索
+		const targetUrls = await searchFangpi(keyword); // 3. 修正了变量名 targeturls -> targetUrls
+
+		// 4. 检查搜索结果是否为空
+		if (targetUrls.length === 0) {
+			// 5. 使用 throw 抛出错误，而不是 Promise.reject，这在 async/await 中是标准做法
+			throw new Error(`没有为关键词 "${keyword}" 找到任何结果。`);
+		}
+		
+		const firstResultUrl = targetUrls[0]; // 3. 修正了变量名 urls -> targetUrls
+		
+		// 获取 play_id
+		const playId = await getPlayId(firstResultUrl); // 3. 修正了变量名 targetUrl_on -> firstResultUrl, targetUrlID -> playId
+		
+		// 6. 检查 playId 是否成功获取
+		if (!playId) {
+			throw new Error(`无法从URL: ${firstResultUrl} 获取 play_id。`);
+		}
+		
+		// 7. 将 Promise 链式调用改为 await 风格，使代码更统一、更易读
+		const response = await request('POST', apiUrl, {
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			body: `id=${encodeURIComponent(playId)}` // 3. 修正了变量名
 		});
+		
+		const jsonBody = await response.json();
+
+		if (jsonBody.status === 'ok' && jsonBody.data?.url) {
+			return jsonBody.data.url;
+		} else {
+			// 如果 API 返回失败，也抛出错误
+			throw new Error('API未能返回有效的播放URL。');
+		}
+	} catch (error) {
+		console.error(`获取音轨失败: ${error.message}`);
+		// 8. 向上层抛出错误，以便缓存层或其他调用者可以捕获到
+		return Promise.reject(error);
+	}
 };
 
 const cs = getManagedCacheStorage('provider/pyncmd');
