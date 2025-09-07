@@ -5,10 +5,10 @@ const { getManagedCacheStorage } = require('../cache');
 const track = (info) => {
 	const apiUrl = 'https://tools.qzxdp.cn/api/wyy_vip/parse';
 	const targetUrl = `https://music.163.com/#/song?id=${info.id}&musicType=lossless`;
-	
+
 	return request('POST', apiUrl, {
 		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-		body: `url=${encodeURIComponent(targetUrl)}`
+		body: `url=${encodeURIComponent(targetUrl)}`,
 	})
 		.then((response) => response.json())
 		.then((jsonBody) => {
