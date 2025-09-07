@@ -5,7 +5,7 @@ const { getManagedCacheStorage } = require('../cache');
 
 const track = (info) => {
 	const apiUrl = 'https://tools.qzxdp.cn/api/wyy_vip/parse';
-	const targetUrl = `https://music.163.com/#/song?id=${info.id}&musicType=lossless`;
+	const targetUrl = `https://music.163.com/#/song?id=${info.id}`;
 	console.log(targetUrl);
 	
 	return request('POST', apiUrl, {
@@ -27,7 +27,7 @@ const track = (info) => {
 		  "Referer": "https://tools.qzxdp.cn/wyy_vip",
 		  "Referrer-Policy": "strict-origin-when-cross-origin"
 		},
-		body: `url=${encodeURIComponent(targetUrl)}`
+		body: `url=${encodeURIComponent(targetUrl)}&musicType=lossless`
 	})
 		.then((response) => response.json())
 		.then((jsonBody) => {
