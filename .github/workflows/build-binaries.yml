@@ -41,7 +41,7 @@ jobs:
                   platforms: all
 
             - name: Clean
-              run: yarn cache clean --all
+              run: rm -rf yarn.lock
 
             - name: Install dependencies
               run: yarn cache clean --all && yarn install --immutable
