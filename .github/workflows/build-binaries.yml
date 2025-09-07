@@ -5,16 +5,6 @@ on:
         branches:
             - 'enhanced'
         paths-ignore:
-            - '**.md'
-            - 'precompiled/*.js'
-
-    pull_request:
-        types:
-            - opened
-            - synchronize
-            - reopened
-        paths-ignore:
-            - '**.md'
             - 'precompiled/*.js'
 
     release:
