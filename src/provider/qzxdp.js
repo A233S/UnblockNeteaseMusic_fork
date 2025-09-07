@@ -18,10 +18,17 @@ const track = (info) => {
   })
   .then((response) => response.json())
   .then((jsonBody) => {
-    if (jsonBody?.status === 'ok' && jsonBody.data?.url) {
-      return jsonBody.data.url;
-    }
-    return Promise.reject('API response error');
+      // 验证响应数据结构
+      if (
+          !jsonBody?.data || 
+          !Array.isArray(jsonBody.data) || 
+          jsonBody.data.length === 0 ||
+          !jsonBody.data[0].url
+      ) {
+          return Promise.reject();
+      }
+      const trackData = jsonBody.data[0];
+      return trackData.br > 0 ? trackData.url : Promise.reject();
   });
 };
 
