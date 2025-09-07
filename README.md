@@ -1,3 +1,6 @@
+## 分支说明
+- 分支增加音源`pyncmd_kuwo`，使用 GD studio <https://music.gdstudio.xyz> 提供的kuwo音乐源
+
 <!-- Thanks to https://zhconvert.org's Chinese (China) converter ! -->
 
 <img src="https://user-images.githubusercontent.com/26399680/47980314-0e3f1700-e102-11e8-8857-e3436ecc8beb.png" alt="logo" width="140" height="140" align="right">
