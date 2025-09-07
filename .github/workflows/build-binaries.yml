@@ -41,7 +41,7 @@ jobs:
                   platforms: all
 
             - name: Install dependencies
-              run: yarn
+              run: yarn install
 
             - name: Make bundle
               run: yarn build
