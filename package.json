@@ -19,7 +19,20 @@
 	"pkg": {
 		"assets": [
 			"server.key",
-			"server.crt"
+			"server.crt",
+			"node_modules/axios/**/*",
+			"node_modules/cheerio/**/*",
+			"node_modules/node-fetch/**/*",
+			"node_modules/pino/**/*",
+			"node_modules/pino-pretty/**/*",
+			"node_modules/node-windows/**/*"
+		],
+		"scripts": [
+			"node_modules/axios/dist/node/axios.cjs",
+			"node_modules/cheerio/lib/index.js",
+			"node_modules/node-fetch/src/index.js",
+			"node_modules/pino/pino.js",
+			"node_modules/pino-pretty/index.js"
 		],
 		"targets": [
 			"node18-linux-arm64",
