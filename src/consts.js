@@ -14,7 +14,7 @@ const PROVIDERS = {
 	pyncmd_kuwo: require('./provider/pyncmd_kuwo'),
 	qzxdp: require('./provider/qzxdp'),
 	toubiec: require('./provider/toubiec'),
-	fangpi: require('./provider/fangpi'),
+	//fangpi: require('./provider/fangpi'),
 };
 
 module.exports = {
