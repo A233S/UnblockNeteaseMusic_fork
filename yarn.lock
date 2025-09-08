@@ -1308,9 +1308,9 @@ __metadata:
     "@types/node": ^24.3.0
     "@types/pino": 6.3.12
     "@yarnpkg/sdks": ^3.2.3
-    axios: ^1.7.2
+    axios: ^1.6.0
     browserslist: ^4.25.3
-    cheerio: ^1.0.0-rc.12
+    cheerio: ^1.0.0
     core-js: ^3.45.1
     cross-env: ^7.0.3
     jest: ^30.0.5
@@ -1994,7 +1994,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.7.2":
+"axios@npm:^1.6.0":
   version: 1.11.0
   resolution: "axios@npm:1.11.0"
   dependencies:
@@ -2309,7 +2309,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cheerio@npm:^1.0.0-rc.12":
+"cheerio@npm:^1.0.0":
   version: 1.1.2
   resolution: "cheerio@npm:1.1.2"
   dependencies:
