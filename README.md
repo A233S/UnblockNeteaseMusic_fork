@@ -1,5 +1,7 @@
 # 分支说明
+- 修改默认音源为`['pyncmd', 'toubiec', 'pyncmd_kuwo', 'kugou', 'pyncmd_joox', 'migu']`
 - 分支增加音源`pyncmd_kuwo`，使用 GD studio <https://music.gdstudio.xyz> 提供的kuwo音乐源
+- 分支增加音源`pyncmd_joox`，使用 GD studio <https://music.gdstudio.xyz> 提供的joox音乐源
 - 分支增加音源`toubiec`，使用 <https://api.toubiec.cn/wyapi.html> 提供的网易云音乐源
 
 ---
