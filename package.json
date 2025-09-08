@@ -16,32 +16,35 @@
 		"pkg": "pkg . --out-path=dist/",
 		"test": "jest"
 	},
-	"pkg": {
-		"assets": [
-			"server.key",
-			"server.crt",
-			"node_modules/axios/**/*",
-			"node_modules/cheerio/**/*",
-			"node_modules/node-fetch/**/*",
-			"node_modules/pino/**/*",
-			"node_modules/pino-pretty/**/*",
-			"node_modules/node-windows/**/*"
-		],
-		"scripts": [
-			"node_modules/axios/dist/node/axios.cjs",
-			"node_modules/cheerio/lib/index.js",
-			"node_modules/node-fetch/src/index.js",
-			"node_modules/pino/pino.js",
-			"node_modules/pino-pretty/index.js"
-		],
-		"targets": [
-			"node18-linux-arm64",
-			"node18-win-arm64",
-			"node18-linux-x64",
-			"node18-win-x64"
-		],
-		"outputPath": "dist"
-	},
+  "pkg": {
+    "assets": [
+      "server.key",
+      "server.crt",
+      "node_modules/axios/**/*",
+      "node_modules/cheerio/**/*",
+      "node_modules/node-fetch/**/*",
+      "node_modules/pino/**/*",
+      "node_modules/pino-pretty/**/*",
+      "node_modules/node-windows/**/*"
+    ],
+    "scripts": [
+      "src/**/*.js",
+      "precompiled/**/*.js",
+      "node_modules/axios/**/*.js",
+      "node_modules/cheerio/**/*.js",
+      "node_modules/node-fetch/**/*.js",
+      "node_modules/pino/**/*.js",
+      "node_modules/pino-pretty/**/*.js"
+    ],
+    "targets": [
+      "node18-linux-arm64",
+      "node18-win-arm64", 
+      "node18-linux-x64",
+      "node18-win-x64"
+    ],
+    "outputPath": "dist"
+  }
+},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/UnblockNeteaseMusic/server.git"
