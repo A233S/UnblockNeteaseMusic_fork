@@ -1,4 +1,4 @@
-const DEFAULT_SOURCE = ['kugou', 'kuwo', 'migu', 'ytdlp'];
+const DEFAULT_SOURCE = ['pyncmd', 'toubiec', 'pyncmd_kuwo', 'kugou', 'pyncmd_joox', 'migu'];
 const PROVIDERS = {
 	qq: require('./provider/qq'),
 	kugou: require('./provider/kugou'),
@@ -14,6 +14,7 @@ const PROVIDERS = {
 	pyncmd_kuwo: require('./provider/pyncmd_kuwo'),
 	qzxdp: require('./provider/qzxdp'),
 	toubiec: require('./provider/toubiec'),
+	pyncmd_joox: require('./provider/pyncmd_joox'),
 	//fangpi: require('./provider/fangpi'),
 };
 
