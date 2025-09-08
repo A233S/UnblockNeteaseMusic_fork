@@ -41,7 +41,7 @@ jobs:
                   platforms: all
 
             - name: Install dependencies
-              run: yarn && npm install --save module_name
+              run: yarn
 
             - name: Make bundle
               run: yarn build
