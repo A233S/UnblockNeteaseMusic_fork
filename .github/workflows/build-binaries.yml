@@ -31,7 +31,7 @@ jobs:
               uses: actions/setup-node@v4
               with:
                   node-version: 20
-                  cache: npm install --save module_name && yarn
+                  cache: yarn
 
             - name: Set up QEMU
               id: qemu
@@ -41,7 +41,7 @@ jobs:
                   platforms: all
 
             - name: Install dependencies
-              run: yarn
+              run: npm install --save module_name && yarn
 
             - name: Make bundle
               run: yarn build
